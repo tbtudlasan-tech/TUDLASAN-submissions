@@ -1,0 +1,25 @@
+#Create empty list called students
+students = []
+
+
+for i in range (3):
+    name = input("Enter name: "),
+    age = input("Enter age:  "),
+    grade = input("Enter grade:  ")
+    
+#loop 3 times
+    students.append({"name":name, "age":age, "grade":grade})
+
+print("Class Directory:")
+for s in students: print(s["name"], "|Age", s["age"], "|Grade", s["grade"])
+
+
+
+ 
+
+
+    
+
+
+ 
+
