@@ -1,0 +1,110 @@
+database = {
+    "snacks": [],
+    "students": [],
+    "sales": []
+}
+
+def create_snack(snack_id, name, category, price):
+    database["snacks"].append({
+        "snack_id": snack_id,
+        "name": name,
+        "category": category,
+        "price": price
+    })
+
+def create_student(student_id, name, grade_level):
+    database["students"].append({
+        "student_id": student_id,
+        "name": name,
+        "grade_level": grade_level
+    })
+
+def create_sale(sale_id, student_id, snack_id, quantity, total_price):
+    database["sales"].append({
+        "sale_id": sale_id,
+        "student_id": student_id,
+        "snack_id": snack_id,
+        "quantity": quantity,
+        "total_price": total_price
+    })
+
+create_snack(1, "Piattos", "chips", 20)
+create_snack(2, "Nova", "chips", 18)
+create_snack(3, "Oreo", "cookies", 15)
+create_snack(4, "KitKat", "chocolate", 25)
+create_snack(5, "Skyflakes", "crackers", 12)
+
+create_student(1, "Alice Cruz", 10)
+create_student(2, "Brian Santos", 9)
+create_student(3, "Carla Reyes", 10)
+create_student(4, "David Lim", 11)
+create_student(5, "Ella Tan", 10)
+
+create_sale(1, 1, 1, 2, 40)
+create_sale(2, 3, 3, 1, 15)
+create_sale(3, 2, 2, 3, 54)
+create_sale(4, 5, 4, 1, 25)
+create_sale(5, 1, 1, 1, 20)
+create_sale(6, 4, 5, 2, 24)
+
+for snack in database["snacks"]:
+    if snack["category"] == "chips":
+        print(snack["name"], "-", snack["price"])
+
+for sale in database["sales"]:
+    for student in database["students"]:
+        if sale["student_id"] == student["student_id"]:
+            if student["grade_level"] == 10:
+                print("Sale ID:", sale["sale_id"], "Total:", sale["total_price"])
+
+total_quantity = 0
+for sale in database["sales"]:
+    total_quantity += sale["quantity"]
+
+print("Total quantity sold:", total_quantity)
+
+for snack in database["snacks"]:
+    if snack["name"] == "Piattos":
+        snack["price"] = 22
+        print("Updated Piattos:", snack)
+
+for student in database["students"]:
+    if student["name"] == "Alice Cruz":
+        student["grade_level"] = 11
+        print("Updated student:", student)
+
+for sale in database["sales"]:
+    if sale["sale_id"] == 1:
+        sale["quantity"] = 3
+        sale["total_price"] = 60
+        print("Updated sale:", sale)
+
+for snack in database["snacks"][:]:
+    if snack["name"] == "Nova":
+        database["snacks"].remove(snack)
+        print("Deleted snack:", snack)
+        break
+
+def report_chips():
+    print("\nSnacks in 'chips' category:")
+    for snack in database["snacks"]:
+        if snack["category"] == "chips":
+            print(snack["name"], "-", snack["price"])
+
+def report_grade10_sales():
+    print("\nSales by Grade 10 students:")
+    for sale in database["sales"]:
+        for student in database["students"]:
+            if sale["student_id"] == student["student_id"]:
+                if student["grade_level"] == 10:
+                    print("Sale ID:", sale["sale_id"], "Total:", sale["total_price"])
+
+def report_total_quantity():
+    total = 0
+    for sale in database["sales"]:
+        total += sale["quantity"]
+    print("\nTotal quantity sold:", total)
+
+report_chips()
+report_grade10_sales()
+report_total_quantity()
